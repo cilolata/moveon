@@ -1,71 +1,71 @@
-const conexao = require('../infraestrutura/conexao');
+import { query } from '../infraestrutura/conexao';
 
-class modelAparelhos {
-    adiciona(aparelho, res){
-        
-        const sql = 'INSERT INTO aparelhos SET ?';
-    
-        conexao.query(sql, aparelho, (erro, resultados) => {
-            if(erro){
-                res.status(400).json(erro);
+class ModelAparelhos {
+  constructor() {
+    return '';
+  }
 
-            }else{
-                res.status(201).json(aparelho);
-            }
-        })
-    };
+  adiciona(aparelho, res) {
+    const sql = 'INSERT INTO aparelhos SET ?';
 
-    lista(res){
-        const sql = 'SELECT * FROM aparelhos';
+    query(sql, aparelho, (erro, resultados) => {
+      if (erro) {
+        res.status(400).json(erro);
+      } else {
+        res.status(201).json(aparelho);
+      }
+    });
+  }
 
-        conexao.query(sql, (erro, resultados)=>{
-            if(erro){
-                res.status(400).json(erro)
-            }else{
-                res.status(200).json(resultados);
-            }
-        })
-    };
+  lista(res) {
+    const sql = 'SELECT * FROM aparelhos';
 
-    buscaPorId(id, res){
-        const sql = `SELECT * FROM aparelhos WHERE id=${id}`;
+    query(sql, (erro, resultados) => {
+      if (erro) {
+        res.status(400).json(erro);
+      } else {
+        res.status(200).json(resultados);
+      }
+    });
+  }
 
-        conexao.query(sql, (erro, resultados)=>{
-            const aparelho = resultados[0];
+  buscaPorId(id, res) {
+    const sql = `SELECT * FROM aparelhos WHERE id=${id}`;
 
-            if(erro){
-                res.status(400).json(erro)
-            }else{
-                res.status(200).json(aparelho);
-            }
-        })
-    };
-  
-    altera(id, valores, res){
-        const sql = 'UPDATE aparelhos SET ? WHERE id=?';
+    query(sql, (erro, resultados) => {
+      const aparelho = resultados[0];
 
-        conexao.query(sql, [valores, id], (erro, resultados)=>{
-            if(erro){
-                res.status(400).json(erro)
-            }else{
-                res.status(200).json({...valores, id});
-            }
-        })
-    };
+      if (erro) {
+        res.status(400).json(erro);
+      } else {
+        res.status(200).json(aparelho);
+      }
+    });
+  }
 
-    deleta(id, res){
-        const sql = 'DELETE FROM aparelhos WHERE id=?';
+  altera(id, valores, res) {
+    const sql = 'UPDATE aparelhos SET ? WHERE id=?';
 
-        conexao.query(sql, id, (erro, resultados) => {
-            if(erro){
-                res.status(400).json(erro)
-            }else{
-                res.status(200).json({id});
-            }
-        })
-    };
+    query(sql, [valores, id], (erro, resultados) => {
+      if (erro) {
+        res.status(400).json(erro);
+      } else {
+        res.status(200).json({ ...valores, id });
+      }
+    });
+  }
 
+  deleta(id, res) {
+    const sql = 'DELETE FROM aparelhos WHERE id=?';
 
-};
+    query(sql, id, (erro, resultados) => {
+      if (erro) {
+        res.status(400).json(erro);
+      } else {
+        res.status(200).json({ id });
+      }
+    });
+  }
+}
 
-module.exports = new modelAparelhos;
+export default ModelAparelhos;

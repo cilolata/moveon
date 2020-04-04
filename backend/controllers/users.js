@@ -1,35 +1,34 @@
-const modelUsers = require('../models/modelUsers');
+import ModelUsers from '../models/ModelUsers';
 
- module.exports = app => {
+const users = new ModelUsers();
 
-    app.get('/users', (req, res) => {
-        modelUsers.lista(res);
-    });
+module.exports = (app) => {
+  app.get('/users', (req, res) => {
+    users.lista(res);
+  });
 
-    app.get('/users/:id', (req, res) => {
-        const id = parseInt(req.params.id);
+  app.get('/users/:id', (req, res) => {
+    const id = parseInt(req.params.id);
 
-        modelUsers.buscaPorId(id, res);
-    });
+    users.buscaPorId(id, res);
+  });
 
-     app.post('/users', (req, res) => {
-         const user = req.body;
+  app.post('/users', (req, res) => {
+    const user = req.body;
 
-         modelUsers.adiciona(user, res);
-     });
+    users.adiciona(user, res);
+  });
 
-     app.put('/users/:id', (req, res)=>{
-        const id = parseInt(req.params.id);
-        const valores = req.body;
+  app.put('/users/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const valores = req.body;
 
-        modelUsers.altera(id, valores, res);
-    });
+    users.altera(id, valores, res);
+  });
 
-    app.delete('/users/:id', (req, res)=>{
-        const id = parseInt(req.params.id);
+  app.delete('/users/:id', (req, res) => {
+    const id = parseInt(req.params.id);
 
-        modelUsers.deleta(id, res);
-    });
-
-    
+    users.deleta(id, res);
+  });
 };
