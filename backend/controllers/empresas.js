@@ -1,36 +1,33 @@
-const modelEmpresas = require('../models/modelEmpresas');
+import ModelEmpresas from '../models/ModelEmpresas';
 
+const empresas = new ModelEmpresas();
+export default (app) => {
+  app.get('/empresas', (req, res) => {
+    empresas.lista(res);
+  });
 
-module.exports = app => {
-   
-    app.get('/empresas', (req, res) => {
-        modelEmpresas.lista(res);
-    });
+  app.get('/empresas/:id', (req, res) => {
+    const id = parseInt(req.params.id);
 
-    app.get('/empresas/:id', (req, res) => {
-        const id = parseInt(req.params.id);
+    empresas.buscaPorId(id, res);
+  });
 
-        modelEmpresas.buscaPorId(id, res);
-    });
+  app.post('/empresas', (req, res) => {
+    const empresa = req.body;
 
-    app.post('/empresas', (req, res) => {
-        const empresa = req.body;
+    empresas.adiciona(empresa, res);
+  });
 
-        modelEmpresas.adiciona(empresa, res);
-    });
+  app.put('/empresas/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const valores = req.body;
 
-    app.put('/empresas/:id', (req, res)=>{
-        const id = parseInt(req.params.id);
-        const valores = req.body;
+    empresas.altera(id, valores, res);
+  });
 
-        modelEmpresas.altera(id, valores, res);
-    });
+  app.delete('/empresas/:id', (req, res) => {
+    const id = parseInt(req.params.id);
 
-    app.delete('/empresas/:id', (req, res)=>{
-        const id = parseInt(req.params.id);
-
-        modelEmpresas.deleta(id, res);
-    });
-
-    
-}
+    empresas.deleta(id, res);
+  });
+};

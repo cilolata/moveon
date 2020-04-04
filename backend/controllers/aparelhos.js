@@ -1,36 +1,34 @@
-const modelAparelhos = require('../models/modelAparelhos');
+import ModelAparelhos from '../models/ModelAparelhos';
 
+const aparelhos = new ModelAparelhos();
 
-module.exports = app => {
+export default (app) => {
+  app.get('/aparelhos', (req, res) => {
+    aparelhos.lista(res);
+  });
 
-    app.get('/aparelhos', (req, res) => {
-        modelAparelhos.lista(res);
-    });
+  app.get('/aparelhos/:id', (req, res) => {
+    const id = parseInt(req.params.id);
 
-    app.get('/aparelhos/:id', (req, res) => {
-        const id = parseInt(req.params.id);
+    aparelhos.buscaPorId(id, res);
+  });
 
-        modelAparelhos.buscaPorId(id, res);
-    });
-   
-    app.post('/aparelhos', (req, res) => {
-        const aparelho = req.body;
+  app.post('/aparelhos', (req, res) => {
+    const aparelho = req.body;
 
-        modelAparelhos.adiciona(aparelho, res);
-    });
+    aparelhos.adiciona(aparelho, res);
+  });
 
-    app.put('/aparelhos/:id', (req, res)=>{
-        const id = parseInt(req.params.id);
-        const valores = req.body;
+  app.put('/aparelhos/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const valores = req.body;
 
-        modelAparelhos.altera(id, valores, res);
-    });
+    aparelhos.altera(id, valores, res);
+  });
 
-    app.delete('/aparelhos/:id', (req, res)=>{
-        const id = parseInt(req.params.id);
+  app.delete('/aparelhos/:id', (req, res) => {
+    const id = parseInt(req.params.id);
 
-        modelAparelhos.deleta(id, res);
-    });
-
-    
+    aparelhos.deleta(id, res);
+  });
 };
