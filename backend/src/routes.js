@@ -1,6 +1,6 @@
-import EmpresaController from './app/controllers/EmpresaController';
+import { Router } from 'express';
 
-const { Router } = require('express');
+import EmpresaController from './app/controllers/EmpresaController';
 
 const routes = new Router();
 

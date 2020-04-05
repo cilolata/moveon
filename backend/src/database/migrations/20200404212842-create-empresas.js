@@ -7,7 +7,7 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      name_fantasia: {
+      nome_fantasia: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -37,6 +37,10 @@ module.exports = {
         allowNull: false,
       },
       uf: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      email: {
         type: Sequelize.STRING,
         allowNull: false,
       },
