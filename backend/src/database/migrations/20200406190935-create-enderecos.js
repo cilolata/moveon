@@ -24,10 +24,14 @@ module.exports = {
         allowNull: false,
       },
       estado: {
-        type: Sequelize.CHAR(2),
+        type: Sequelize.STRING,
         allowNull: false,
       },
       uf: {
+        type: Sequelize.CHAR(2),
+        allowNull: false,
+      },
+      cep: {
         type: Sequelize.STRING,
         allowNull: false,
       },

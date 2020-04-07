@@ -15,6 +15,15 @@ class Empresa extends Model {
         sequelize,
       }
     );
+
+    return this;
+  }
+
+  static associate(models) {
+    this.hasMany(models.Endereco, {
+      foreignKey: 'empresa_id',
+      as: 'endereco',
+    });
   }
 }
 

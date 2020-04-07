@@ -33,13 +33,6 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
-      endereco_id: {
-        type: Sequelize.INTEGER,
-        references: { model: 'enderecos', key: 'id' },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        allowNul: true,
-      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

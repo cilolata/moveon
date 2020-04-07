@@ -1,4 +1,5 @@
 import Empresa from '../models/Empresa';
+import Endereco from '../models/Endereco';
 
 class EmpresaController {
   async index(req, res) {
@@ -13,20 +14,51 @@ class EmpresaController {
       where: {
         id,
       },
+      attributes: [
+        'id',
+        'nome_fantasia',
+        'razao_social',
+        'cnpj',
+        'email',
+        'status',
+      ],
+      include: [
+        {
+          model: Endereco,
+          as: 'endereco',
+          attributes: [
+            'rua',
+            'numero',
+            'bairro',
+            'cidade',
+            'estado',
+            'uf',
+            'telefone',
+            'celular',
+          ],
+        },
+      ],
     });
 
     return res.json(empresa);
   }
 
   async store(req, res) {
-    const empresaExists = await Empresa.findOne({
+    const cnpjExists = await Empresa.findOne({
+      where: { cnpj: req.body.cnpj },
+    });
+
+    if (cnpjExists) {
+      return res.status(400).json({ error: 'CNPJ já existe.' });
+    }
+
+    const emailExists = await Empresa.findOne({
       where: { email: req.body.email },
     });
 
-    if (empresaExists) {
-      return res.status(400).json({ error: 'Empresa já existe.' });
+    if (emailExists) {
+      return res.status(400).json({ error: 'E-mail já existe.' });
     }
-
     const empresa = await Empresa.create(req.body);
 
     return res.json(empresa);
