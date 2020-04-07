@@ -10,6 +10,7 @@ class Endereco extends Model {
         cidade: Sequelize.STRING,
         estado: Sequelize.STRING,
         uf: Sequelize.CHAR,
+        cep: Sequelize.STRING,
         telefone: Sequelize.STRING,
         celular: Sequelize.STRING,
       },
@@ -17,6 +18,15 @@ class Endereco extends Model {
         sequelize,
       }
     );
+
+    return this;
+  }
+
+  static associate(models) {
+    this.belongsTo(models.Empresa, {
+      foreignKey: 'empresa_id',
+      as: 'endereco',
+    });
   }
 }
 
