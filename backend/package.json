@@ -6,6 +6,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "consign": "^0.1.6",
+    "date-fns": "^2.0.0-beta.5",
     "express": "^4.17.1",
     "git-commit-msg-linter": "^2.4.2",
     "mysql": "^2.18.1",
