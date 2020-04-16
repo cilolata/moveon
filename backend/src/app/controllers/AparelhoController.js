@@ -1,11 +1,20 @@
 import Aparelho from '../models/Aparelho';
+import File from '../models/File';
 
 class AparelhoController {
   async index(req, res) {
-    const aparelho = await Aparelho.findAll();
+    const aparelho = await Aparelho.findAll({
+      include: [
+        {
+          model: File,
+          as: 'foto',
+          attributes: ['id', 'path', 'url'],
+        },
+      ],
+    });
 
     return res.json(aparelho);
-  };
+  }
 
   // async show(req, res) {
   //   const { id } = req.params;
@@ -35,7 +44,7 @@ class AparelhoController {
   //   return res.json(empresa);
   // }
 
-  async store(req , res){
+  async store(req, res) {
     const aparelho = await Aparelho.create(req.body);
 
     return res.json(aparelho);
@@ -50,7 +59,6 @@ class AparelhoController {
 
     return res.json(aparelho);
   }
+}
 
-};
-
- export default new AparelhoController();
+export default new AparelhoController();

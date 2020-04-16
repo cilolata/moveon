@@ -6,8 +6,6 @@ import User from '../app/models/User';
 import Aparelho from '../app/models/Aparelho';
 import File from '../app/models/File';
 
-
-
 import databaseConfig from '../config/database';
 
 const models = [Endereco, Empresa, User, Aparelho, File];

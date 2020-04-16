@@ -8,11 +8,8 @@ import UserController from './app/controllers/UserController';
 import AparelhoController from './app/controllers/AparelhoController';
 import FileController from './app/controllers/FileController';
 
-
-
 const routes = new Router();
 const upload = multer(multerConfig);
-
 
 routes.post('/users', UserController.store);
 // routes.get('/users', UserController.index);
@@ -35,7 +32,6 @@ routes.delete('/empresas/:id', EmpresaController.delete);
 routes.post('/aparelhos', AparelhoController.store);
 routes.get('/aparelhos', AparelhoController.index);
 routes.put('/aparelhos/:id', AparelhoController.update);
-
 
 routes.post('/files', upload.single('file'), FileController.store);
 
