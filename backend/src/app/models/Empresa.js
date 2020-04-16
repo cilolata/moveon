@@ -25,6 +25,7 @@ class Empresa extends Model {
       as: 'endereco',
     });
   }
+
 }
 
 export default Empresa;
