@@ -1,21 +1,79 @@
-import { parseISO } from 'date-fns';
 import User from '../models/User';
+import Endereco from '../models/Endereco';
 
 class UserController {
-  async store(req, res) {
-    const { nome, sobrenome, cpf, email, password_hash } = req.body;
+  async index(req, res) {
+    const users = await User.findAll({
+      include: [
+        {
+          model: Endereco,
+          as: 'endereco',
+          attributes: [
+            'rua',
+            'numero',
+            'bairro',
+            'cidade',
+            'estado',
+            'uf',
+            'telefone',
+            'celular',
+          ],
+        },
+      ],
+    });
+    return res.json(users);
+  }
 
-    const date = parseISO(req.body.data_nascimento);
+  async show(req, res) {
+    const { id } = req.params;
 
-    const user = await User.create({
-      nome,
-      sobrenome,
-      data_nascimento: date,
-      cpf,
-      email,
-      password_hash,
+    const user = await User.findOne({
+      where: {
+        id,
+      },
+      attributes: ['nome', 'sobrenome', 'data_nascimento', 'cpf', 'email'],
+      include: [
+        {
+          model: Endereco,
+          as: 'endereco',
+          attributes: [
+            'rua',
+            'numero',
+            'bairro',
+            'cidade',
+            'estado',
+            'uf',
+            'telefone',
+            'celular',
+          ],
+        },
+      ],
     });
     return res.json(user);
+  }
+
+  async store(req, res) {
+    const user = await User.create(req.body);
+
+    return res.json(user);
+  }
+
+  async update(req, res) {
+    const user = await User.findByPk(req.params.id);
+
+    await user.update(req.body);
+
+    return res.json(user);
+  }
+
+  async delete(req, res) {
+    const { id } = req.params;
+
+    const user = await User.findByPk(id);
+
+    await user.destroy();
+
+    return res.send();
   }
 }
 

@@ -23,26 +23,16 @@ class AparelhoController {
       where: {
         id,
       },
-      attributes: [
-        "nome",
-        "descricao",
-        "peso",
-        "quantidade",
-        "valor_diaria",
-      ],
+      attributes: ['nome', 'descricao', 'peso', 'quantidade', 'valor_diaria'],
       include: [
         {
           model: File,
           as: 'foto',
-          attributes: [
-            "nome",
-            "path",
-          ],
+          attributes: ['nome', 'path'],
         },
       ],
     });
     return res.json(aparelho);
-
   }
 
   async store(req, res) {

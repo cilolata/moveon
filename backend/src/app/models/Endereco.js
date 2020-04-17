@@ -27,6 +27,11 @@ class Endereco extends Model {
       foreignKey: 'empresa_id',
       as: 'endereco',
     });
+
+    this.belongsTo(models.Endereco, {
+      foreignKey: 'user_id',
+      as: 'enderco',
+    });
   }
 }
 

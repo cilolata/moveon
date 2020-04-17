@@ -19,12 +19,12 @@ class User extends Model {
     return this;
   }
 
-  // static associate(models) {
-  //   this.hasMany(models.Endereco, {
-  //     foreignKey: 'empresa_id',
-  //     as: 'endereco',
-  //   });
-  // }
+  static associate(models) {
+    this.hasMany(models.Endereco, {
+      foreignKey: 'user_id',
+      as: 'endereco',
+    });
+  }
 }
 
 export default User;
