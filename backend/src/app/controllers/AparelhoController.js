@@ -16,33 +16,34 @@ class AparelhoController {
     return res.json(aparelho);
   }
 
-  // async show(req, res) {
-  //   const { id } = req.params;
+  async show(req, res) {
+    const { id } = req.params;
 
-  //   const aparelho= await Aparelho.findOne({
-  //     where: {
-  //       id,
-  //     },
-  //     attributes: [
-  //       'nome',
-  //       'descricao',
-  //       'peso',
-  //      ' quantidade',
-  //       'valor_diaria'
-  //     ],
-  //     include: [
-  //       {
-  //         model: File,
-  //         as: 'file',
-  //         attributes: [
+    const aparelho = await Aparelho.findOne({
+      where: {
+        id,
+      },
+      attributes: [
+        "nome",
+        "descricao",
+        "peso",
+        "quantidade",
+        "valor_diaria",
+      ],
+      include: [
+        {
+          model: File,
+          as: 'foto',
+          attributes: [
+            "nome",
+            "path",
+          ],
+        },
+      ],
+    });
+    return res.json(aparelho);
 
-  //         ],
-  //       },
-  //     ],
-  //   });
-
-  //   return res.json(empresa);
-  // }
+  }
 
   async store(req, res) {
     const aparelho = await Aparelho.create(req.body);
@@ -58,6 +59,16 @@ class AparelhoController {
     await aparelho.update(req.body);
 
     return res.json(aparelho);
+  }
+
+  async delete(req, res) {
+    const { id } = req.params;
+
+    const aparelho = await Aparelho.findByPk(id);
+
+    await aparelho.destroy();
+
+    return res.send();
   }
 }
 

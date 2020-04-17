@@ -31,8 +31,13 @@ routes.delete('/empresas/:id', EmpresaController.delete);
 
 routes.post('/aparelhos', AparelhoController.store);
 routes.get('/aparelhos', AparelhoController.index);
+routes.get('/aparelhos/:id', AparelhoController.show);
 routes.put('/aparelhos/:id', AparelhoController.update);
+routes.delete('/aparelhos/:id', AparelhoController.delete);
 
 routes.post('/files', upload.single('file'), FileController.store);
+routes.get('/files', FileController.index);
+routes.get('/files/:id', FileController.show);
+routes.delete('/files/:id', FileController.delete);
 
 export default routes;
