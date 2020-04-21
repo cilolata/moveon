@@ -53,9 +53,26 @@ class UserController {
   }
 
   async store(req, res) {
-    const user = await User.create(req.body);
+    const cpfExists = await User.findOne({
+      where:{ cpf: req.body.cpf },
+    });
 
-    return res.json(user);
+    if(cpfExists){
+      return res.status(400).json({ error: 'Cpf já cadastrado.' })
+    }
+
+    const emailExists = await User.findOne({
+      where: { email: req.body.email },
+    });
+
+    if (emailExists) {
+      return res.status(400).json({ error: 'E-mail já existe.' });
+    }
+
+      const user = await User.create(req.body);
+
+      return res.json(user);
+
   }
 
   async update(req, res) {
