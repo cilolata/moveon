@@ -23,6 +23,12 @@ class Aparelho extends Model {
       foreignKey: 'foto_aparelho_id',
       as: 'foto',
     });
+
+    this.belongsTo(models.Empresa, {
+        foreignKey: 'empresa_id',
+        as: 'empresa',
+
+    });
   }
 }
 

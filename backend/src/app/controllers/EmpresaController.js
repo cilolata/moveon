@@ -1,9 +1,25 @@
 import Empresa from '../models/Empresa';
 import Endereco from '../models/Endereco';
+import Aparelho from '../models/Aparelho';
 
 class EmpresaController {
   async index(req, res) {
-    const empresas = await Empresa.findAll();
+    const empresas = await Empresa.findAll({
+      include: [
+        {
+          model: Aparelho,
+          as: 'aparelho',
+          attributes: [
+            'id',
+            'nome',
+            'descricao',
+            'peso',
+            'quantidade',
+            'valor_diaria'
+          ],
+        },
+      ],
+    });
     return res.json(empresas);
   }
 

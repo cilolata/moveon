@@ -24,6 +24,12 @@ class Empresa extends Model {
       foreignKey: 'empresa_id',
       as: 'endereco',
     });
+
+    this.hasMany(models.Aparelho, {
+      foreignKey: 'empresa_id',
+      as:'aparelho',
+    });
+
   }
 
 }

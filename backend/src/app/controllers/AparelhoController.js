@@ -1,5 +1,6 @@
 import Aparelho from '../models/Aparelho';
 import File from '../models/File';
+import Empresa from '../models/Empresa';
 
 class AparelhoController {
   async index(req, res) {
@@ -10,8 +11,13 @@ class AparelhoController {
           as: 'foto',
           attributes: ['id', 'path', 'url'],
         },
-      ],
-    });
+        {
+        model: Empresa,
+        as: 'empresa',
+
+    },
+  ],
+});
 
     return res.json(aparelho);
   }
@@ -32,6 +38,7 @@ class AparelhoController {
         },
       ],
     });
+
     return res.json(aparelho);
   }
 

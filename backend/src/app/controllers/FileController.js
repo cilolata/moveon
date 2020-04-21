@@ -29,7 +29,7 @@ class FileController {
 
   //    await file.update(req.body);
 
-  //    return res.json(endereco);
+  //    return res.json(file);
   //  }
 
    async delete(req, res) {
