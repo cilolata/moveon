@@ -30,12 +30,12 @@ routes.delete('/enderecos/:id', EnderecoController.delete);
 routes.post('/empresas', EmpresaController.store);
 routes.get('/empresas', EmpresaController.index);
 routes.get('/empresas/:id', EmpresaController.show);
-routes.use(authMiddleware);
+routes.get('/aparelhos', AparelhoController.index);
+// routes.use(authMiddleware);
 routes.put('/empresas/:id', EmpresaController.update);
 routes.delete('/empresas/:id', EmpresaController.delete);
 
 routes.post('/aparelhos', AparelhoController.store);
-routes.get('/aparelhos', AparelhoController.index);
 routes.get('/aparelhos/:id', AparelhoController.show);
 routes.put('/aparelhos/:id', AparelhoController.update);
 routes.delete('/aparelhos/:id', AparelhoController.delete);

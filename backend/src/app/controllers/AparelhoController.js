@@ -12,11 +12,12 @@ class AparelhoController {
           attributes: ['id', 'path', 'url'],
         },
         {
-        model: Empresa,
-        as: 'empresa'
-      },
-    ],
-  });
+          model: Empresa,
+          as: 'empresa',
+          attributes: ['id', 'nome_fantasia', 'razao_social'],
+        },
+      ],
+    });
 
     return res.json(aparelho);
   }
@@ -37,7 +38,8 @@ class AparelhoController {
         },
         {
           model: Empresa,
-          as: 'empresa'
+          as: 'empresa',
+          attributes: ['id', 'nome_fantasia', 'razao_social'],
         },
       ],
     });
