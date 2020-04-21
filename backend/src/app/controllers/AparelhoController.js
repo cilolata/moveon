@@ -13,11 +13,10 @@ class AparelhoController {
         },
         {
         model: Empresa,
-        as: 'empresa',
-
-    },
-  ],
-});
+        as: 'empresa'
+      },
+    ],
+  });
 
     return res.json(aparelho);
   }
@@ -35,6 +34,10 @@ class AparelhoController {
           model: File,
           as: 'foto',
           attributes: ['nome', 'path'],
+        },
+        {
+          model: Empresa,
+          as: 'empresa'
         },
       ],
     });
