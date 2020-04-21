@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
+import bcrypt from 'bcrypt';
 
 class Empresa extends Model {
   static init(sequelize) {
@@ -8,6 +9,7 @@ class Empresa extends Model {
         razao_social: Sequelize.STRING,
         cnpj: Sequelize.STRING,
         email: Sequelize.STRING,
+        password: Sequelize.VIRTUAL,
         password_hash: Sequelize.STRING,
         status: Sequelize.BOOLEAN,
       },
@@ -16,7 +18,17 @@ class Empresa extends Model {
       }
     );
 
+    this.addHook('beforeSave', async (empresa) => {
+      if (empresa.password) {
+        empresa.password_hash = await bcrypt.hash(empresa.password, 8);
+      }
+    });
+
     return this;
+  }
+
+  checkPassword(password) {
+    return bcrypt.compare(password, this.password_hash);
   }
 
   static associate(models) {
@@ -31,7 +43,6 @@ class Empresa extends Model {
     });
 
   }
-
 }
 
 export default Empresa;

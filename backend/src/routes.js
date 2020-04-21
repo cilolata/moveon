@@ -7,9 +7,13 @@ import EnderecoController from './app/controllers/EnderecoController';
 import UserController from './app/controllers/UserController';
 import AparelhoController from './app/controllers/AparelhoController';
 import FileController from './app/controllers/FileController';
+import SessionController from './app/controllers/SessionController';
+import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 const upload = multer(multerConfig);
+
+routes.post('/sessions', SessionController.store);
 
 routes.post('/users', UserController.store);
 routes.get('/users', UserController.index);
@@ -26,6 +30,7 @@ routes.delete('/enderecos/:id', EnderecoController.delete);
 routes.post('/empresas', EmpresaController.store);
 routes.get('/empresas', EmpresaController.index);
 routes.get('/empresas/:id', EmpresaController.show);
+routes.use(authMiddleware);
 routes.put('/empresas/:id', EmpresaController.update);
 routes.delete('/empresas/:id', EmpresaController.delete);
 
