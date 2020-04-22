@@ -54,11 +54,11 @@ class UserController {
 
   async store(req, res) {
     const cpfExists = await User.findOne({
-      where:{ cpf: req.body.cpf },
+      where: { cpf: req.body.cpf },
     });
 
-    if(cpfExists){
-      return res.status(400).json({ error: 'Cpf já cadastrado.' })
+    if (cpfExists) {
+      return res.status(400).json({ error: 'Cpf já cadastrado.' });
     }
 
     const emailExists = await User.findOne({
@@ -69,10 +69,9 @@ class UserController {
       return res.status(400).json({ error: 'E-mail já existe.' });
     }
 
-      const user = await User.create(req.body);
+    const user = await User.create(req.body);
 
-      return res.json(user);
-
+    return res.json(user);
   }
 
   async update(req, res) {

@@ -15,7 +15,7 @@ class EmpresaController {
             'descricao',
             'peso',
             'quantidade',
-            'valor_diaria'
+            'valor_diaria',
           ],
         },
       ],

@@ -1,4 +1,4 @@
-import File from '../models/File'
+import File from '../models/File';
 
 class FileController {
   async store(req, res) {
@@ -32,13 +32,13 @@ class FileController {
   //    return res.json(file);
   //  }
 
-   async delete(req, res) {
-     const file = await File.findByPk(req.params.id);
+  async delete(req, res) {
+    const file = await File.findByPk(req.params.id);
 
-     await file.destroy();
+    await file.destroy();
 
-     return res.send();
-   }
+    return res.send();
+  }
 }
 
 export default new FileController();

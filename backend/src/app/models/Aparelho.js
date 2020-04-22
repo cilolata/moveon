@@ -25,9 +25,8 @@ class Aparelho extends Model {
     });
 
     this.belongsTo(models.Empresa, {
-        foreignKey: 'empresa_id',
-        as: 'empresa',
-
+      foreignKey: 'empresa_id',
+      as: 'empresa',
     });
   }
 }
