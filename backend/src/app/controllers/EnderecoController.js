@@ -1,8 +1,21 @@
 import Endereco from '../models/Endereco';
+import Empresa from '../models/Empresa';
 
 class EnderecoController {
   async store(req, res) {
+    const empresa = await Empresa.findByPk(req.userLog);
+    console.log(empresa);
+    if (empresa) {
+      const endereco = await Endereco.create(req.body);
+      await endereco.update({
+        empresa_id: req.userLog,
+      });
+      return res.json(endereco);
+    }
     const endereco = await Endereco.create(req.body);
+    await endereco.update({
+      user_id: req.userLog,
+    });
     return res.json(endereco);
   }
 

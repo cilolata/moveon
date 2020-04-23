@@ -14,8 +14,10 @@ const routes = new Router();
 const upload = multer(multerConfig);
 
 routes.post('/sessions', SessionController.store);
-
 routes.post('/users', UserController.store);
+routes.post('/empresas', EmpresaController.store);
+
+routes.use(authMiddleware);
 routes.get('/users', UserController.index);
 routes.get('/users/:id', UserController.show);
 routes.put('/users/:id', UserController.update);
@@ -27,11 +29,10 @@ routes.get('/enderecos/:id', EnderecoController.show);
 routes.put('/enderecos/:id', EnderecoController.update);
 routes.delete('/enderecos/:id', EnderecoController.delete);
 
-routes.post('/empresas', EmpresaController.store);
 routes.get('/empresas', EmpresaController.index);
 routes.get('/empresas/:id', EmpresaController.show);
 routes.get('/aparelhos', AparelhoController.index);
-// routes.use(authMiddleware);
+
 routes.put('/empresas/:id', EmpresaController.update);
 routes.delete('/empresas/:id', EmpresaController.delete);
 
