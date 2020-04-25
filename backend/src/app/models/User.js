@@ -5,10 +5,6 @@ class User extends Model {
   static init(sequelize) {
     super.init(
       {
-        nome: Sequelize.STRING,
-        sobrenome: Sequelize.STRING,
-        data_nascimento: Sequelize.DATE,
-        cpf: Sequelize.STRING,
         email: Sequelize.STRING,
         password: Sequelize.VIRTUAL,
         password_hash: Sequelize.STRING,
@@ -32,9 +28,9 @@ class User extends Model {
   }
 
   static associate(models) {
-    this.hasMany(models.Endereco, {
+    this.belongsTo(models.Cliente, {
       foreignKey: 'user_id',
-      as: 'endereco',
+      as: 'teste',
     });
   }
 }

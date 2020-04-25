@@ -1,52 +1,49 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('enderecos', {
+    return queryInterface.createTable('aparelhos', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      rua: {
+
+      nome: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      numero: {
+
+      descricao: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      bairro: {
+
+      peso: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      cidade: {
+
+      quantidade: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      estado: {
+
+      valor_diaria: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      uf: {
-        type: Sequelize.CHAR(2),
-        allowNull: false,
-      },
-      cep: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      telefone: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      celular: {
-        type: Sequelize.STRING,
-        allowNull: false,
+      file_id: {
+        type: Sequelize.INTEGER,
+        references: { model: 'files', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+        allowNul: false,
       },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },
+
       updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -55,6 +52,6 @@ module.exports = {
   },
 
   down: (queryInterface) => {
-    return queryInterface.dropTable('enderecos');
+    return queryInterface.dropTable('aparelhos');
   },
 };

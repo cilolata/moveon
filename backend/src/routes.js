@@ -8,6 +8,7 @@ import UserController from './app/controllers/UserController';
 import AparelhoController from './app/controllers/AparelhoController';
 import FileController from './app/controllers/FileController';
 import SessionController from './app/controllers/SessionController';
+import ClienteController from './app/controllers/ClienteController';
 import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
@@ -16,6 +17,7 @@ const upload = multer(multerConfig);
 routes.post('/sessions', SessionController.store);
 routes.post('/users', UserController.store);
 routes.post('/empresas', EmpresaController.store);
+routes.post('/clientes', ClienteController.store);
 
 routes.use(authMiddleware);
 routes.get('/users', UserController.index);

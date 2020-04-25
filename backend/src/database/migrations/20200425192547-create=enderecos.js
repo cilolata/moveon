@@ -1,37 +1,54 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('empresas', {
+    return queryInterface.createTable('enderecos', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      nome_fantasia: {
+      rua: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      razao_social: {
+      numero: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      cnpj: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      password_hash: {
+      bairro: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      status: {
-        type: Sequelize.BOOLEAN,
+      cidade: {
+        type: Sequelize.STRING,
         allowNull: false,
+      },
+      estado: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      uf: {
+        type: Sequelize.CHAR(2),
+        allowNull: false,
+      },
+      cep: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      telefone: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      celular: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      user_id: {
+        type: Sequelize.INTEGER,
+        references: { model: 'users', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+        allowNul: false,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -45,6 +62,6 @@ module.exports = {
   },
 
   down: (queryInterface) => {
-    return queryInterface.dropTable('empresas');
+    return queryInterface.dropTable('enderecos');
   },
 };
