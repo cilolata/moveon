@@ -26,7 +26,7 @@ class SessionController {
     });
 
     if (!empresa && !user) {
-      return res.status(401).json({ error: 'Usuario não encontrado.' });
+      return res.status(401).json({ error: 'Usuário não encontrado.' });
     }
 
     if (empresa) {

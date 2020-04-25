@@ -21,9 +21,9 @@ class Cliente extends Model {
 
 
   static associate(models) {
-    this.hasMany(models.User, {
+    this.belongsTo(models.User, {
       foreignKey: 'user_id',
-      as: 'users',
+      as: 'userClient',
     });
   }
 }
