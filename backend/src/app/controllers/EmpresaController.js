@@ -67,14 +67,7 @@ class EmpresaController {
     if (cnpjExists) {
       return res.status(400).json({ error: 'CNPJ já existe.' });
     }
-
-    const emailExists = await Empresa.findOne({
-      where: { email: req.body.email },
-    });
-
-    if (emailExists) {
-      return res.status(400).json({ error: 'E-mail já existe.' });
-    }
+    
     const empresa = await Empresa.create(req.body);
 
     return res.json(empresa);

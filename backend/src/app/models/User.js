@@ -32,6 +32,11 @@ class User extends Model {
       foreignKey: 'user_id',
       as: 'teste',
     });
+
+    this.belongsTo(models.Empresa, {
+      foreignKey: 'user_id',
+      as: 'userEmpresa',
+    });
   }
 }
 

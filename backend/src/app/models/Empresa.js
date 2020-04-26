@@ -8,9 +8,6 @@ class Empresa extends Model {
         nome_fantasia: Sequelize.STRING,
         razao_social: Sequelize.STRING,
         cnpj: Sequelize.STRING,
-        email: Sequelize.STRING,
-        password: Sequelize.VIRTUAL,
-        password_hash: Sequelize.STRING,
         status: Sequelize.BOOLEAN,
       },
       {
@@ -37,10 +34,15 @@ class Empresa extends Model {
       as: 'endereco',
     });
 
-    this.hasMany(models.Aparelho, {
-      foreignKey: 'empresa_id',
-      as: 'aparelho',
-    });
+    // this.hasMany(models.Aparelho, {
+    //   foreignKey: 'empresa_id',
+    //   as: 'aparelho',
+    // });
+
+      this.belongsTo(models.User, {
+        foreignKey: 'user_id',
+        as: 'userEmpresa',
+      });
   }
 }
 
