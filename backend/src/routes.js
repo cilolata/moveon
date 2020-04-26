@@ -48,4 +48,7 @@ routes.get('/files', FileController.index);
 routes.get('/files/:id', FileController.show);
 routes.delete('/files/:id', FileController.delete);
 
+routes.get('/clientes', ClienteController.index);
+
+
 export default routes;

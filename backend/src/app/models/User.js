@@ -30,7 +30,7 @@ class User extends Model {
   static associate(models) {
     this.hasOne(models.Cliente, {
       foreignKey: 'user_id',
-      as: 'usercliente',
+      as: 'userCliente',
     });
 
     this.hasOne(models.Empresa, {

@@ -3,24 +3,26 @@ import Endereco from '../models/Endereco';
 
 class UserController {
   async index(req, res) {
-    const users = await User.findAll({
-      include: [
-        {
-          model: Endereco,
-          as: 'endereco',
-          attributes: [
-            'rua',
-            'numero',
-            'bairro',
-            'cidade',
-            'estado',
-            'uf',
-            'telefone',
-            'celular',
-          ],
-        },
-      ],
-    });
+    const users = await User.findAll(
+    //   {
+    //   include: [
+    //     {
+    //       model: Endereco,
+    //       as: 'endereco',
+    //       attributes: [
+    //         'rua',
+    //         'numero',
+    //         'bairro',
+    //         'cidade',
+    //         'estado',
+    //         'uf',
+    //         'telefone',
+    //         'celular',
+    //       ],
+    //     },
+    //   ],
+    // }
+    );
     return res.json(users);
   }
 
