@@ -1,6 +1,5 @@
 import * as Yup from 'yup';
 import jwt from 'jsonwebtoken';
-import Empresa from '../models/Empresa';
 import User from '../models/User';
 import authConfig from '../../config/auth';
 
@@ -17,23 +16,9 @@ class SessionController {
 
     const { email, password } = req.body;
 
-    const empresa = await Empresa.findOne({
-      where: { email },
-    });
-
     const user = await User.findOne({
       where: { email },
     });
-
-    if (!empresa && !user) {
-      return res.status(401).json({ error: 'Usuário não encontrado.' });
-    }
-
-    if (empresa) {
-      if (!(await empresa.checkPassword(password))) {
-        return res.status(401).json({ error: 'Senha incorreta!' });
-      }
-    }
 
     if (user) {
       if (!(await user.checkPassword(password))) {
@@ -41,12 +26,11 @@ class SessionController {
       }
     }
 
-    const { id, name } = empresa || user;
+    const { id } = user;
 
     return res.json({
       user: {
         id,
-        name,
         email,
       },
       token: jwt.sign({ id }, authConfig.secret, {

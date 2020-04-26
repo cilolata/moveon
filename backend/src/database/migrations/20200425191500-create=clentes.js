@@ -21,7 +21,6 @@ module.exports = {
       data_nascimento: {
         type: Sequelize.DATE,
         allowNull: false,
-        unique: true,
       },
 
       cpf: {

@@ -39,10 +39,10 @@ class Empresa extends Model {
     //   as: 'aparelho',
     // });
 
-      this.belongsTo(models.User, {
-        foreignKey: 'user_id',
-        as: 'userEmpresa',
-      });
+    this.belongsTo(models.User, {
+      foreignKey: 'user_id',
+      as: 'userEmpresa',
+    });
   }
 }
 

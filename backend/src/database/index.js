@@ -9,7 +9,7 @@ import File from '../app/models/File';
 
 import databaseConfig from '../config/database';
 
-const models = [User, Cliente, Endereco, Empresa,  Aparelho, File];
+const models = [User, Cliente, Endereco, Empresa, Aparelho, File];
 
 class Database {
   constructor() {

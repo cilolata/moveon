@@ -28,12 +28,12 @@ class User extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Cliente, {
+    this.hasOne(models.Cliente, {
       foreignKey: 'user_id',
-      as: 'teste',
+      as: 'usercliente',
     });
 
-    this.belongsTo(models.Empresa, {
+    this.hasOne(models.Empresa, {
       foreignKey: 'user_id',
       as: 'userEmpresa',
     });
