@@ -4,22 +4,25 @@ import Aparelho from '../models/Aparelho';
 
 class EmpresaController {
   async index(req, res) {
-    const empresas = await Empresa.findAll({
-      include: [
-        {
-          model: Aparelho,
-          as: 'aparelho',
-          attributes: [
-            'id',
-            'nome',
-            'descricao',
-            'peso',
-            'quantidade',
-            'valor_diaria',
-          ],
-        },
-      ],
-    });
+    const empresas = await Empresa
+      .findAll
+      //   {
+      //   // include: [
+      //   //   {
+      //   //     model: Aparelho,
+      //   //     as: 'aparelho',
+      //   //     attributes: [
+      //   //       'id',
+      //   //       'nome',
+      //   //       'descricao',
+      //   //       'peso',
+      //   //       'quantidade',
+      //   //       'valor_diaria',
+      //   //     ],
+      //   //   },
+      //   // ],
+      // }
+      ();
     return res.json(empresas);
   }
 
@@ -30,30 +33,23 @@ class EmpresaController {
       where: {
         id,
       },
-      attributes: [
-        'id',
-        'nome_fantasia',
-        'razao_social',
-        'cnpj',
-        'email',
-        'status',
-      ],
-      include: [
-        {
-          model: Endereco,
-          as: 'endereco',
-          attributes: [
-            'rua',
-            'numero',
-            'bairro',
-            'cidade',
-            'estado',
-            'uf',
-            'telefone',
-            'celular',
-          ],
-        },
-      ],
+      attributes: ['id', 'nome_fantasia', 'razao_social', 'cnpj', 'status'],
+      // include: [
+      //   {
+      //     model: Endereco,
+      //     as: 'endereco',
+      //     attributes: [
+      //       'rua',
+      //       'numero',
+      //       'bairro',
+      //       'cidade',
+      //       'estado',
+      //       'uf',
+      //       'telefone',
+      //       'celular',
+      //     ],
+      //   },
+      // ],
     });
 
     return res.json(empresa);
@@ -67,7 +63,7 @@ class EmpresaController {
     if (cnpjExists) {
       return res.status(400).json({ error: 'CNPJ já existe.' });
     }
-    
+
     const empresa = await Empresa.create(req.body);
 
     return res.json(empresa);

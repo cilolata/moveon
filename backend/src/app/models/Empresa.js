@@ -29,15 +29,15 @@ class Empresa extends Model {
   }
 
   static associate(models) {
-    this.hasMany(models.Endereco, {
-      foreignKey: 'empresa_id',
-      as: 'endereco',
-    });
-
-    // this.hasMany(models.Aparelho, {
+    // this.hasMany(models.Endereco, {
     //   foreignKey: 'empresa_id',
-    //   as: 'aparelho',
+    //   as: 'endereco',
     // });
+
+    this.hasMany(models.Aparelho, {
+      foreignKey: 'empresa_id',
+      as: 'aparelho',
+    });
 
     this.belongsTo(models.User, {
       foreignKey: 'user_id',

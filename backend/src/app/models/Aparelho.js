@@ -20,7 +20,7 @@ class Aparelho extends Model {
 
   static associate(models) {
     this.belongsTo(models.File, {
-      foreignKey: 'foto_aparelho_id',
+      foreignKey: 'file_id',
       as: 'foto',
     });
 

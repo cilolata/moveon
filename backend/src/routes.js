@@ -50,5 +50,4 @@ routes.delete('/files/:id', FileController.delete);
 
 routes.get('/clientes', ClienteController.index);
 
-
 export default routes;

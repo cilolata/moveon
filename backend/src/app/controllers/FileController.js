@@ -24,13 +24,13 @@ class FileController {
     return res.json(file);
   }
 
-  //  async update(req, res) {
-  //    const file = await File.findByPk(req.params.id);
+  async update(req, res) {
+    const file = await File.findByPk(req.params.id);
 
-  //    await file.update(req.body);
+    await file.update(req.body);
 
-  //    return res.json(file);
-  //  }
+    return res.json(file);
+  }
 
   async delete(req, res) {
     const file = await File.findByPk(req.params.id);

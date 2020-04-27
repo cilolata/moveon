@@ -20,13 +20,6 @@ class File extends Model {
 
     return this;
   }
-
-  static associate(models) {
-    this.hasMany(models.Aparelho, {
-      foreignKey: 'foto_aparelho_id',
-      as: 'foto',
-    });
-  }
 }
 
 export default File;

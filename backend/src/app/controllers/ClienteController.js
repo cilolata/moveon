@@ -1,5 +1,5 @@
 import Cliente from '../models/Cliente';
-import User from  '../models/User';
+import User from '../models/User';
 
 class ClienteController {
   async store(req, res) {
@@ -14,10 +14,7 @@ class ClienteController {
         {
           model: User,
           as: 'userCliente',
-          attributes: [
-            'id',
-            'email'
-          ],
+          attributes: ['id', 'email'],
         },
       ],
     });
