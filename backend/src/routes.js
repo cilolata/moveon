@@ -20,9 +20,10 @@ routes.post('/users', UserController.store);
 routes.use(authMiddleware);
 routes.post('/empresas', EmpresaController.store);
 routes.post('/clientes', ClienteController.store);
-routes.get('/users', UserController.index);
-routes.get('/users/:id', UserController.show);
-routes.put('/users/:id', UserController.update);
+
+// routes.get('/users', UserController.index);
+routes.get('/users/show', UserController.show);
+routes.put('/users', UserController.update);
 routes.delete('/users/:id', UserController.delete);
 
 routes.post('/enderecos', EnderecoController.store);

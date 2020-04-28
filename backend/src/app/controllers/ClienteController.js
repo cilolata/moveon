@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 import Cliente from '../models/Cliente';
 import User from '../models/User';
+import Cliente from '../models/Cliente';
 
 class ClienteController {
   async store(req, res) {
@@ -45,8 +46,14 @@ class ClienteController {
       include: [
         {
           model: User,
-          as: 'userCliente',
+          as: 'cliente',
           attributes: ['id', 'email'],
+          include: [
+            {
+              model: Cliente,
+              as: ''
+            }
+          ]
         },
       ],
     });

@@ -45,6 +45,22 @@ class EmpresaController {
           model: User,
           as: 'empresa',
           attributes: ['email'],
+          include: [
+            {
+              model: Endereco,
+              as: 'endereco',
+              attributes: [
+                'rua',
+                'numero',
+                'bairro',
+                'cidade',
+                'estado',
+                'uf',
+                'telefone',
+                'celular',
+              ],
+            },
+          ],
         },
       ],
     });
@@ -52,26 +68,31 @@ class EmpresaController {
   }
 
   async show(req, res) {
-    const { id } = req.userId;
-
     const empresa = await Empresa.findOne({
       where: {
-        user_id: id,
+        user_id: req.userId,
       },
       attributes: ['id', 'nome_fantasia', 'razao_social', 'cnpj', 'status'],
       include: [
         {
           model: User,
-          as: 'endereco',
-          attributes: [
-            'rua',
-            'numero',
-            'bairro',
-            'cidade',
-            'estado',
-            'uf',
-            'telefone',
-            'celular',
+          as: 'empresa',
+          attributes: ['email'],
+          include: [
+            {
+              model: Endereco,
+              as: 'endereco',
+              attributes: [
+                'rua',
+                'numero',
+                'bairro',
+                'cidade',
+                'estado',
+                'uf',
+                'telefone',
+                'celular',
+              ],
+            },
           ],
         },
       ],

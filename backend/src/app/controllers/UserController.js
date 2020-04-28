@@ -1,41 +1,21 @@
+import * as Yup from 'yup';
 import User from '../models/User';
+import Cliente from '../models/Cliente';
 import Endereco from '../models/Endereco';
 
 class UserController {
-  async index(req, res) {
-    const users = await User
-      .findAll
-      //   {
-      //   include: [
-      //     {
-      //       model: Endereco,
-      //       as: 'endereco',
-      //       attributes: [
-      //         'rua',
-      //         'numero',
-      //         'bairro',
-      //         'cidade',
-      //         'estado',
-      //         'uf',
-      //         'telefone',
-      //         'celular',
-      //       ],
-      //     },
-      //   ],
-      // }
-      ();
-    return res.json(users);
-  }
-
   async show(req, res) {
-    const { id } = req.params;
-
     const user = await User.findOne({
       where: {
-        id,
+        id: req.userId,
       },
-      attributes: ['nome', 'sobrenome', 'data_nascimento', 'cpf', 'email'],
+      attributes: ['email'],
       include: [
+        {
+          model: Cliente,
+          as: 'cliente',
+          attributes: ['nome', 'sobrenome', 'data_nascimento', 'cpf'],
+        },
         {
           model: Endereco,
           as: 'endereco',
@@ -56,13 +36,22 @@ class UserController {
   }
 
   async store(req, res) {
-    // const emailExists = await User.findOne({
-    //   where: { email: req.body.email },
-    // });
+    const schema = Yup.object().shape({
+      email: Yup.string().email().required(),
+      password: Yup.string().required().min(6),
+    });
 
-    // if (emailExists) {
-    //   return res.status(400).json({ error: 'E-mail já existe.' });
-    // }
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Falha ao validar dados!' });
+    }
+
+    const emailExists = await User.findOne({
+      where: { email: req.body.email },
+    });
+
+    if (emailExists) {
+      return res.status(400).json({ error: 'E-mail já existe.' });
+    }
 
     const user = await User.create(req.body);
 
@@ -70,7 +59,23 @@ class UserController {
   }
 
   async update(req, res) {
-    const user = await User.findByPk(req.params.id);
+    const schema = Yup.object().shape({
+      email: Yup.string().email().required(),
+      oldPassword: Yup.string().min(6),
+      password: Yup.string()
+        .min(6)
+        .when('oldPassword', (oldPassword, field) =>
+          oldPassword ? field.required() : field
+        ),
+      confirmPassword: Yup.string().when('password', (password, field) =>
+        password ? field.required().oneOf([Yup.ref('password')]) : field
+      ),
+    });
+    if (!(await schema.isValid(req.body))) {
+      return res.status(401).json({ error: 'Falha ao validar dados.' });
+    }
+
+    const user = await User.findByPk(req.userId);
 
     await user.update(req.body);
 
