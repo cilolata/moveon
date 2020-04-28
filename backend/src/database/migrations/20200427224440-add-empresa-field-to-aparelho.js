@@ -13,6 +13,6 @@ module.exports = {
   },
 
   down: (queryInterface) => {
-    return queryInterface.removeColumn('empresa_id');
+    return queryInterface.removeColumn('aparelhos', 'empresa_id');
   },
 };

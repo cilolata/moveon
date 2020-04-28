@@ -22,6 +22,7 @@ module.exports = {
       },
       status: {
         type: Sequelize.BOOLEAN,
+        defaultValue: true,
         allowNull: false,
       },
       user_id: {

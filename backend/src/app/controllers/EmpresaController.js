@@ -1,70 +1,81 @@
+import * as Yup from 'yup';
 import Empresa from '../models/Empresa';
+import User from '../models/User';
 import Endereco from '../models/Endereco';
-import Aparelho from '../models/Aparelho';
 
 class EmpresaController {
-  async index(req, res) {
-    const empresas = await Empresa
-      .findAll
-      //   {
-      //   // include: [
-      //   //   {
-      //   //     model: Aparelho,
-      //   //     as: 'aparelho',
-      //   //     attributes: [
-      //   //       'id',
-      //   //       'nome',
-      //   //       'descricao',
-      //   //       'peso',
-      //   //       'quantidade',
-      //   //       'valor_diaria',
-      //   //     ],
-      //   //   },
-      //   // ],
-      // }
-      ();
-    return res.json(empresas);
-  }
+  async store(req, res) {
+    const schema = Yup.object().shape({
+      nome_fantasia: Yup.string().required(),
+      razao_social: Yup.string().required(),
+      cnpj: Yup.string().required().min(14),
+    });
 
-  async show(req, res) {
-    const { id } = req.params;
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Falha ao validar dados.' });
+    }
 
-    const empresa = await Empresa.findOne({
-      where: {
-        id,
-      },
-      attributes: ['id', 'nome_fantasia', 'razao_social', 'cnpj', 'status'],
-      // include: [
-      //   {
-      //     model: Endereco,
-      //     as: 'endereco',
-      //     attributes: [
-      //       'rua',
-      //       'numero',
-      //       'bairro',
-      //       'cidade',
-      //       'estado',
-      //       'uf',
-      //       'telefone',
-      //       'celular',
-      //     ],
-      //   },
-      // ],
+    const { nome_fantasia, razao_social, cnpj } = req.body;
+
+    const user_id = req.userId;
+
+    const empresaExists = await Empresa.findOne({
+      where: { user_id },
+    });
+
+    if (empresaExists) {
+      return res.status(400).json({ error: 'Empresa já existe.' });
+    }
+
+    const empresa = await Empresa.create({
+      nome_fantasia,
+      razao_social,
+      cnpj,
+      user_id,
     });
 
     return res.json(empresa);
   }
 
-  async store(req, res) {
-    const cnpjExists = await Empresa.findOne({
-      where: { cnpj: req.body.cnpj },
+  async index(req, res) {
+    const empresas = await Empresa.findAll({
+      attributes: ['id', 'nome_fantasia', 'razao_social', 'cnpj', 'status'],
+      include: [
+        {
+          model: User,
+          as: 'empresa',
+          attributes: ['email'],
+        },
+      ],
     });
+    return res.json(empresas);
+  }
 
-    if (cnpjExists) {
-      return res.status(400).json({ error: 'CNPJ já existe.' });
-    }
+  async show(req, res) {
+    const { id } = req.userId;
 
-    const empresa = await Empresa.create(req.body);
+    const empresa = await Empresa.findOne({
+      where: {
+        user_id: id,
+      },
+      attributes: ['id', 'nome_fantasia', 'razao_social', 'cnpj', 'status'],
+      include: [
+        {
+          model: User,
+          as: 'endereco',
+          attributes: [
+            'rua',
+            'numero',
+            'bairro',
+            'cidade',
+            'estado',
+            'uf',
+            'telefone',
+            'celular',
+          ],
+        },
+      ],
+    });
 
     return res.json(empresa);
   }

@@ -1,21 +1,51 @@
+import * as Yup from 'yup';
 import Endereco from '../models/Endereco';
-import Empresa from '../models/Empresa';
 
 class EnderecoController {
   async store(req, res) {
-    const empresa = await Empresa.findByPk(req.userLog);
-    console.log(empresa);
-    if (empresa) {
-      const endereco = await Endereco.create(req.body);
-      await endereco.update({
-        empresa_id: req.userLog,
-      });
-      return res.json(endereco);
-    }
-    const endereco = await Endereco.create(req.body);
-    await endereco.update({
-      user_id: req.userLog,
+    const schema = Yup.object().shape({
+      rua: Yup.string().required(),
+      numero: Yup.string().required().min(1),
+      bairro: Yup.string().required(),
+      cidade: Yup.string().required(),
+      estado: Yup.string().required(),
+      uf: Yup.string().required().required().max(2),
+      cep: Yup.string().required().min(8),
+      telefone: Yup.string().required().min(10),
+      celular: Yup.string().required().min(11),
     });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Falha ao validar dados.' });
+    }
+
+    const {
+      rua,
+      numero,
+      bairro,
+      cidade,
+      estado,
+      uf,
+      cep,
+      telefone,
+      celular,
+    } = req.body;
+
+    const user_id = req.userId;
+
+    const endereco = await Endereco.create({
+      rua,
+      numero,
+      bairro,
+      cidade,
+      estado,
+      uf,
+      cep,
+      telefone,
+      celular,
+      user_id,
+    });
+
     return res.json(endereco);
   }
 

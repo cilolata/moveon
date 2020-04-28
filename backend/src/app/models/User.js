@@ -30,12 +30,17 @@ class User extends Model {
   static associate(models) {
     this.hasOne(models.Cliente, {
       foreignKey: 'user_id',
-      as: 'userCliente',
+      as: 'cliente',
     });
 
     this.hasOne(models.Empresa, {
       foreignKey: 'user_id',
-      as: 'userEmpresa',
+      as: 'empresa',
+    });
+
+    this.hasMany(models.Endereco, {
+      foreignKey: 'user_id',
+      as: 'endereco',
     });
   }
 }
