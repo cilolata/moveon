@@ -88,6 +88,17 @@ class AparelhoController {
   }
 
   async update(req, res) {
+    const schema = Yup.object().shape({
+      nome: Yup.string().required(),
+      descricao: Yup.string().required(),
+      peso: Yup.string().required(),
+      quantidade: Yup.string().required(),
+      valor_diaria: Yup.string().required(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Erro ao validar dados.' });
+    }
     const { id } = req.params;
 
     const aparelho = await Aparelho.findByPk(id);
@@ -98,6 +109,14 @@ class AparelhoController {
   }
 
   async delete(req, res) {
+    const schema = Yup.object().shape({
+      id: Yup.number().required(),
+    });
+
+    if (!(await schema.isValid(req.params))) {
+      return res.status(400).json({ error: 'Id Inválido.' });
+    }
+
     const { id } = req.params;
 
     const aparelho = await Aparelho.findByPk(id);
