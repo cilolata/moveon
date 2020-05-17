@@ -68,6 +68,14 @@ class EmpresaController {
   }
 
   async show(req, res) {
+    const schema = Yup.object().shape({
+      id: Yup.number().required(),
+    });
+
+    if (!schema.isValid(req.params)) {
+      return res.status(401).json({ error: 'Id Invalido' });
+    }
+
     const empresa = await Empresa.findOne({
       where: {
         user_id: req.userId,
