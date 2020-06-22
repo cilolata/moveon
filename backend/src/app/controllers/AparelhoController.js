@@ -27,7 +27,7 @@ class AparelhoController {
     } = req.body;
 
     const { id } = await Empresa.findOne({
-      where: { id: req.userId },
+      where: { user_id: req.userId },
     });
 
     const aparelho = await Aparelho.create({
