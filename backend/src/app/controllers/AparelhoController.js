@@ -63,6 +63,14 @@ class AparelhoController {
   }
 
   async show(req, res) {
+    const schema = Yup.object().shape({
+      id: Yup.number().required(),
+    });
+
+    if (!(await schema.isValid(req.params))) {
+      return res.status(401).json({ error: 'Id Invalido' });
+    }
+
     const { id } = req.params;
 
     const aparelho = await Aparelho.findOne({

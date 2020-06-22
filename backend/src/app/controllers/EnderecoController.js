@@ -56,6 +56,14 @@ class EnderecoController {
   }
 
   async show(req, res) {
+    const schema = Yup.object().shape({
+      id: Yup.number().required(),
+    });
+
+    if (!(await schema.isValid(req.params))) {
+      return res.status(400).json({ error: 'Id inválido' });
+    }
+
     const endereco = await Endereco.findByPk(req.params.id);
 
     return res.json(endereco);

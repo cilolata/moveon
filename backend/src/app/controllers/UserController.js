@@ -83,9 +83,19 @@ class UserController {
   }
 
   async delete(req, res) {
-    const { id } = req.params;
+    const user = await User.findOne({
+      where: { id: req.userId },
+      include: {
+        model: Endereco,
+        as: 'endereco',
+      },
+    });
 
-    const user = await User.findByPk(id);
+    if (!user) {
+      return res
+        .status(401)
+        .json({ error: 'Você não tem permissão para deletar' });
+    }
 
     await user.destroy();
 

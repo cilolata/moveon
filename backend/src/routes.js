@@ -24,7 +24,7 @@ routes.post('/clientes', ClienteController.store);
 // routes.get('/users', UserController.index);
 routes.get('/users/show', UserController.show);
 routes.put('/users', UserController.update);
-routes.delete('/users/:id', UserController.delete);
+routes.delete('/users', UserController.delete);
 
 routes.post('/enderecos', EnderecoController.store);
 routes.get('/enderecos', EnderecoController.index);
@@ -47,6 +47,7 @@ routes.delete('/aparelhos/:id', AparelhoController.delete);
 routes.post('/files', upload.single('file'), FileController.store);
 routes.get('/files', FileController.index);
 routes.get('/files/:id', FileController.show);
+routes.post('/files/:id', FileController.update);
 routes.delete('/files/:id', FileController.delete);
 
 routes.get('/clientes', ClienteController.index);
