@@ -50,7 +50,7 @@ class ClienteController {
           include: [
             {
               model: Cliente,
-              as: '',
+              as: 'userCliente',
             },
           ],
         },

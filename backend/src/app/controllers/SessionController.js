@@ -30,10 +30,11 @@ class SessionController {
       }
     }
 
-    const { id, type } = await user;
+    const { id, nome, type } = await user;
     return res.json({
       user: {
         id,
+        nome,
         email,
         type
       },
