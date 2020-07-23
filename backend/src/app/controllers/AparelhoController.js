@@ -24,9 +24,11 @@ class AparelhoController {
       quantidade,
       valor_diaria,
       file_id,
+      empresa_id
     } = req.body;
 
-    const { id } = await Empresa.findOne({
+
+    const aparelhoExists = await Empresa.findOne({
       where: { user_id: req.userId },
     });
 
@@ -37,7 +39,7 @@ class AparelhoController {
       quantidade,
       valor_diaria,
       file_id,
-      empresa_id: id,
+      empresa_id
     });
 
     return res.json(aparelho);

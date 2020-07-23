@@ -39,7 +39,7 @@ class EmpresaController {
 
   async index(req, res) {
     const empresas = await Empresa.findAll({
-      attributes: ['id', 'nome_fantasia', 'razao_social', 'cnpj', 'status'],
+      attributes: ['id', 'nome_fantasia', 'razao_social', 'cnpj', 'user_id', 'status'],
       include: [
         {
           model: User,
@@ -72,7 +72,7 @@ class EmpresaController {
       where: {
         user_id: req.userId,
       },
-      attributes: ['id', 'nome_fantasia', 'razao_social', 'cnpj', 'status'],
+      attributes: ['id', 'nome_fantasia', 'razao_social', 'user_id', 'cnpj', 'status'],
       include: [
         {
           model: User,
