@@ -8,7 +8,6 @@ class Endereco extends Model {
         numero: Sequelize.STRING,
         bairro: Sequelize.STRING,
         cidade: Sequelize.STRING,
-        estado: Sequelize.STRING,
         uf: Sequelize.CHAR,
         cep: Sequelize.STRING,
         telefone: Sequelize.STRING,
